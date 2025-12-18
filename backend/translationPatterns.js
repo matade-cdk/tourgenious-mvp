@@ -1,0 +1,102 @@
+// Smart translation patterns for AI-like behavior
+const translationPatterns = {
+  'English-Hindi': {
+    // Pronouns
+    'i': 'मैं',
+    'I': 'मैं',
+    'you': 'तुम',
+    'he': 'वह', 
+    'she': 'वह',
+    'we': 'हम',
+    'they': 'वे',
+    
+    // Verbs
+    'am': 'हूँ',
+    'is': 'है',
+    'are': 'हो/हैं',
+    'love': 'प्यार करना',
+    'like': 'पसंद करना',
+    'want': 'चाहना',
+    'need': 'चाहिए',
+    'have': 'के पास है',
+    'go': 'जाना',
+    'come': 'आना',
+    'see': 'देखना',
+    'know': 'जानना',
+    'think': 'सोचना',
+    'programming': 'प्रोग्रामिंग',
+    'coding': 'कोडिंग',
+    'working': 'काम कर रहा',
+    'studying': 'पढ़ाई कर रहा',
+    
+    // Common words
+    'very': 'बहुत',
+    'good': 'अच्छा',
+    'bad': 'बुरा',
+    'big': 'बड़ा',
+    'small': 'छोटा',
+    'new': 'नया',
+    'old': 'पुराना',
+    'happy': 'खुश',
+    'sad': 'उदास',
+    'computer': 'कंप्यूटर',
+    'phone': 'फोन',
+    'book': 'किताब',
+    'house': 'घर',
+    'school': 'स्कूल',
+    'work': 'काम',
+    'family': 'परिवार',
+    'friend': 'दोस्त',
+    'money': 'पैसा',
+    'time': 'समय',
+    'day': 'दिन',
+    'night': 'रात',
+    'morning': 'सुबह',
+    'evening': 'शाम'
+  },
+  
+  'English-Konkani': {
+    'I': 'हांव',
+    'you': 'तूं',
+    'he': 'तो', 
+    'she': 'ती',
+    'we': 'आमी',
+    'they': 'ते',
+    'love': 'मोग',
+    'like': 'आवडटा',
+    'good': 'बरें',
+    'bad': 'वाईट',
+    'big': 'व्हडलें',
+    'small': 'ल्हान',
+    'house': 'घर',
+    'water': 'उदक',
+    'food': 'जेवण',
+    'time': 'वेळ',
+    'day': 'दिस',
+    'night': 'राती',
+    'beach': 'किनारो'
+  },
+  
+  'English-Marathi': {
+    'I': 'मी',
+    'you': 'तू',
+    'he': 'तो', 
+    'she': 'ती',
+    'we': 'आपण',
+    'they': 'ते',
+    'love': 'प्रेम',
+    'like': 'आवडते',
+    'good': 'चांगले',
+    'bad': 'वाईट',
+    'big': 'मोठे',
+    'small': 'लहान',
+    'house': 'घर',
+    'water': 'पाणी',
+    'food': 'अन्न',
+    'time': 'वेळ',
+    'day': 'दिवस',
+    'night': 'रात्र'
+  }
+};
+
+module.exports = translationPatterns;
