@@ -15,24 +15,110 @@ A full‑stack travel assistant MVP built with Next.js (frontend) and Express (b
 - 🛟 [Troubleshooting](#troubleshooting)
 
 ## Overview ✨
-TourGenious provides:
-- Clean UI with dark mode and responsive design
-- AI-powered translator with multiple fallback providers (Google Translate, OpenRouter, LibreTranslate, MyMemory)
-- Smart chatbot with offline Goa tourism guidance
-- Real-time weather data and nearby places discovery
-- User dashboard with booking, events, and emergency features
+TourGenious is a comprehensive travel companion app that provides:
+
+### 🌐 Multi-Language Support (4 Languages)
+- **English**: Primary interface language
+- **Hindi**: Full translation support with voice
+- **Konkani**: Local Goan language support
+- **Marathi**: Regional language integration
+- Real-time voice translation between all supported languages
+
+### 🔤 AI Translation Module
+- **Multi-Provider Fallback**: Google Translate → OpenRouter → LibreTranslate → MyMemory → Offline patterns
+- **Voice Translation**: Speak and hear translations instantly
+- **Offline Support**: Works without internet using built-in phrase patterns
+- **Quick Phrases**: Pre-loaded common travel phrases
+- **Text-to-Speech**: Native pronunciation in all 4 languages
+
+### 🏨 Booking System
+- **Hotel/Accommodation Search**: Find and book stays
+- **Activity Bookings**: Reserve tours, experiences, and attractions
+- **Real-time Availability**: Live booking status and confirmations
+- **Price Comparison**: Best deals across multiple providers
+- **Booking Management**: View, modify, and cancel reservations
+- **Payment Integration**: Secure booking transactions
+
+### 🎉 Events Module
+- **Local Events Discovery**: Find festivals, concerts, and cultural events
+- **Event Calendar**: Visual calendar with event scheduling
+- **Event Details**: Complete information with photos and descriptions
+- **RSVP System**: Register for events and get updates
+- **Event Categories**: Filter by music, culture, food, adventure, nightlife
+- **Location-Based Events**: Events near your current location
+
+### 🗺️ Interactive Map & Places
+- **Nearby Places Discovery**: Real-time location-based search
+- **Advanced Filters**: 
+  - By category (restaurants, hotels, attractions, shopping, hospitals)
+  - By distance (1km, 5km, 10km radius)
+  - By rating and reviews
+  - By price range
+- **OpenStreetMap Integration**: Detailed maps with real-time data
+- **Place Details**: Photos, reviews, contact info, opening hours
+- **Navigation**: Direct integration with map apps
+- **Offline Maps**: Basic functionality without internet
+
+### 🤖 Smart Assistant & Chatbot
+- **Goa Tourism Expert**: AI-powered local knowledge
+- **Multi-Provider AI**: OpenRouter → Gemini → Offline responses
+- **Contextual Responses**: Travel-specific advice and recommendations
+- **Emergency Support**: Quick access to help and contacts
+- **Weather Integration**: Real-time weather updates and forecasts
+
+### 👤 User Dashboard Features
+- **Profile Management**: Personal preferences and travel history
+- **Booking History**: Complete record of past and upcoming bookings
+- **Favorite Places**: Save and organize preferred locations
+- **Travel Itinerary**: Plan and manage trip schedules
+- **Emergency Contacts**: Quick access to local emergency services
+- **Settings**: Language preferences, notifications, and app customization
+
+### 🎨 UI/UX Features
+- **Dark/Light Mode**: Automatic theme switching
+- **Responsive Design**: Optimized for mobile, tablet, and desktop
+- **Accessibility**: Screen reader support and keyboard navigation
+- **Offline Support**: Core features work without internet connection
+- **Fast Performance**: Optimized loading and smooth animations
 
 ## Tech Stack 💻
-- **Frontend**: Next.js (App Router), TypeScript, Tailwind CSS, Lucide Icons
-- **Backend**: Node.js, Express, Axios, dotenv, CORS
-- **External APIs**: Google Translate, OpenRouter, LibreTranslate, MyMemory, Gemini, OpenWeather, Overpass (OpenStreetMap)
+- **Frontend**: Next.js 14 (App Router), TypeScript, Tailwind CSS, Lucide Icons
+- **Backend**: Node.js, Express.js, Axios, CORS, dotenv
+- **Translation APIs**: Google Translate (free), OpenRouter GPT-5.1-Codex-Max, LibreTranslate, MyMemory
+- **AI/Chatbot**: OpenRouter, Google Gemini, Offline responses
+- **Maps & Places**: OpenStreetMap Overpass API, Geolocation
+- **Weather**: OpenWeatherMap API
+- **Voice**: Web Speech API (Speech Recognition & Synthesis)
+- **Styling**: Custom CSS animations, responsive design
+- **State Management**: React Hooks, Context API
 
 ## Project Structure 🧱
 ```
 / (root)
-├─ backend/              # Express API server
-├─ frontend/             # Next.js app
-└─ README.md
+├─ backend/                    # Express API server
+│  ├─ server.js               # Main server with all API endpoints
+│  ├─ translationPatterns.js  # Offline translation patterns
+│  ├─ package.json           # Backend dependencies
+│  └─ .env.example           # Environment variables template
+├─ frontend/                  # Next.js application
+│  ├─ src/
+│  │  ├─ app/                # App Router pages
+│  │  │  ├─ landing/         # Landing page with navigation
+│  │  │  ├─ user-dashboard/  # User dashboard modules
+│  │  │  │  ├─ dashboard/    # Main dashboard
+│  │  │  │  ├─ booking/      # Booking management
+│  │  │  │  ├─ event/        # Events discovery
+│  │  │  │  ├─ map/          # Interactive maps
+│  │  │  │  ├─ translator/   # Voice translator
+│  │  │  │  └─ smart-assist/ # AI chatbot
+│  │  │  ├─ admin-dashboard/ # Admin panel
+│  │  │  └─ main/           # Public pages
+│  │  ├─ components/        # Reusable components
+│  │  ├─ contexts/         # React contexts (Theme, Language)
+│  │  └─ lib/             # Utilities (API, env config)
+│  ├─ public/             # Static assets
+│  └─ package.json       # Frontend dependencies
+└─ README.md            # Project documentation
 ```
 
 ## Prerequisites ✅
@@ -102,44 +188,64 @@ npm run dev
 ## API Endpoints (Backend) 🔌
 Base URL: `http://localhost:5001/api`
 
-### Health
-- `GET /health` – server status check
-
-### Translation (Multi-provider fallback)
-- `POST /translate` 
+### 🔤 Translation API (Multi-provider)
+- **`POST /translate`** - Translate text between languages
   ```json
   {
     "text": "Hello world",
-    "fromLanguage": "English",
+    "fromLanguage": "English", // English|Hindi|Konkani|Marathi
     "toLanguage": "Hindi"
   }
   ```
-  **Providers**: Google Translate → OpenRouter → LibreTranslate → MyMemory → Offline patterns
+  **Response**: `{ success, translatedText, provider, fallback }`
+  
+  **Providers Chain**: Google Translate → OpenRouter GPT-5.1-Codex-Max → LibreTranslate → MyMemory → Offline patterns
 
-### Chatbot (AI + Offline fallback)
-- `POST /chatbot`
+### 🤖 Chatbot API (AI + Offline)
+- **`POST /chatbot`** - Smart travel assistant
   ```json
   {
     "message": "Tell me about Goa beaches",
     "context": "travel"
   }
   ```
-  **Providers**: OpenRouter → Gemini → Offline Goa guide
+  **Response**: `{ success, message, provider, fallback }`
+  
+  **Providers**: OpenRouter → Gemini → Offline Goa tourism guide
 
-### Weather
-- `GET /weather/:city`
-- `GET /weather/coords/:lat/:lon`
+### 🌤️ Weather API
+- **`GET /weather/:city`** - Weather by city name
+- **`GET /weather/coords/:lat/:lon`** - Weather by coordinates
+  
+  **Response**: Temperature, humidity, description, forecast
 
-### Nearby Places (OpenStreetMap)
-- `POST /places/nearby`
+### 🗺️ Places & Maps API
+- **`POST /places/nearby`** - Discover nearby places
   ```json
   {
     "latitude": 15.2993,
     "longitude": 74.1240,
-    "radius": 5000,
-    "type": "all"
+    "radius": 5000,        // meters
+    "type": "restaurant"   // restaurant|hotel|attraction|hospital|shopping
   }
   ```
+  **Response**: Array of places with details, distance, ratings
+
+### 🏨 Booking API (Planned)
+- **`GET /bookings`** - User's booking history
+- **`POST /bookings`** - Create new booking
+- **`PUT /bookings/:id`** - Update booking
+- **`DELETE /bookings/:id`** - Cancel booking
+
+### 🎉 Events API (Planned)
+- **`GET /events`** - Local events list
+- **`GET /events/category/:type`** - Filter by event type
+- **`POST /events/:id/rsvp`** - RSVP to event
+
+### 🏥 Emergency & Health
+- **`GET /health`** - Server health check
+- **`GET /emergency/contacts`** - Local emergency numbers
+- **`POST /emergency/alert`** - Send emergency alert
 
 ## Deployment Notes 🚀
 - Keep all API keys in backend `.env` only
